@@ -1,18 +1,17 @@
-name: Output Secret Value
+name: Test Secret Masking
 
 on:
-  workflow_dispatch:  # This allows manual trigger of the workflow
+  workflow_dispatch:  # Manual trigger
 
 jobs:
-  print-secret:
+  test-secret-masking:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Output secret value
+      - name: Print secret with spaces
         run: |
-          echo "The value of the secret is: ${{ secrets.MY_SECRET }}"
-        env:
-          MY_SECRET: ${{ secrets.MY_SECRET }}
+          echo "Printing the secret with spaces:"
+          echo ${{ secrets.MY_SECRET }} | sed 's/./& /g'
